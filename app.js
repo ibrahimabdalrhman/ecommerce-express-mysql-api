@@ -5,8 +5,18 @@ dotenv.config({ path: "config.env" });
 const globalError = require('./middlewares/errorMiddleware');
 const ApiError=require('./utils/apiError')
 const productRoute = require('./routes/product');
+const fileUpload = require("express-fileupload");
 
 app.use(express.json());
+
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    uploadTempDir: "/tmp", // Specify a different temporary directory
+    limits: { fileSize: 50 * 1024 * 1024 },
+  })
+);
+
 
 app.use('/api/v1/product', productRoute);
 

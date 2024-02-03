@@ -1,6 +1,7 @@
 const { Product, Image } = require("../models");
 const asyncHandler = require("express-async-handler");
 const ApiError = require("../utils/apiError");
+const cloudinary = require("../utils/cloudinary");
 
 exports.getProducts = asyncHandler(async (req, res) => {
   const products = await Product.findAll({
@@ -10,16 +11,28 @@ exports.getProducts = asyncHandler(async (req, res) => {
 });
 
 exports.getProductById = asyncHandler(async (req, res) => {
-  const products = await Product.findOne(req.params.id, {
+  const products = await Product.findByPk(req.params.id, {
     include: Image,
   });
   res.status(201).json(products);
 });
 
 exports.postProduct = asyncHandler(async (req, res) => {
+  console.log("req.files.image ===>", req.files.image);
+  console.log("req.body ===>", req.body);
+  const image = req.files.image;
+  const uploadRes = await cloudinary.uploader.upload(image.tempFilePath, {
+    public_id: `${Date.now()}`,
+    resource_type: "image",
+    folder: "ecommerce-mysql",
+    // width: 400,
+    // crop: "pad",
+  });
+  console.log("uploadRes ===>", uploadRes);
+
   const products = await Product.create(req.body);
-  if (req.body.image) {
-    const newImage = await products.createImage({ uri: req.body.image });
+  if (req.files.image) {
+    const newImage = await products.createImage({ uri: uploadRes.url });
   }
   res.status(200).json(products);
 });
@@ -37,10 +50,10 @@ exports.updateProduct = asyncHandler(async (req, res) => {
   res.status(200).json(product);
 });
 
-// exports.postProduct = asyncHandler(async (req, res) => {
-//   const products = await Product.create(req.body);
-//   if (req.body.image) {
-//     const newImage = await products.createImage({ uri: req.body.image });
-//   }
-//   res.status(200).json(products);
-// });
+exports.deleteProduct = asyncHandler(async (req, res) => {
+  const product = await Product.findByPk(req.params.id, {
+    include: Image,
+  });
+  await product.destroy();
+  res.status(200).json(product);
+});
