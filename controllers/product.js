@@ -18,18 +18,15 @@ exports.getProductById = asyncHandler(async (req, res) => {
 });
 
 exports.postProduct = asyncHandler(async (req, res) => {
-  console.log("req.files.image ===>", req.files.image);
-  console.log("req.body ===>", req.body);
+
   const image = req.files.image;
   const uploadRes = await cloudinary.uploader.upload(image.tempFilePath, {
     public_id: `${Date.now()}`,
     resource_type: "image",
-    folder: "ecommerce-mysql",
+    folder: "ecommerce-mysql/product",
     // width: 400,
     // crop: "pad",
   });
-  console.log("uploadRes ===>", uploadRes);
-
   const products = await Product.create(req.body);
   if (req.files.image) {
     const newImage = await products.createImage({ uri: uploadRes.url });

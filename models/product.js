@@ -38,15 +38,6 @@ const Product = sequelize.define("Product", {
   },
 });
 
-const Image = sequelize.define('Image', {
-  uri: {
-    type: DataTypes.TEXT
-  }
-});
-
-Product.hasMany(Image);
-Image.belongsTo(Product);
 
 
-
-module.exports={Product,Image};
+module.exports=Product;

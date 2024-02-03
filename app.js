@@ -5,6 +5,7 @@ dotenv.config({ path: "config.env" });
 const globalError = require('./middlewares/errorMiddleware');
 const ApiError=require('./utils/apiError')
 const productRoute = require('./routes/product');
+const categoryRoute = require('./routes/category');
 const fileUpload = require("express-fileupload");
 
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use(
 
 
 app.use('/api/v1/product', productRoute);
+app.use("/api/v1/category", categoryRoute);
 
 
 
