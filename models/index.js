@@ -22,7 +22,6 @@ Product.belongsToMany(SubCategory, {through:'subcategoryProduct'});
 SubCategory.belongsToMany(Product, { through: 'subcategoryProduct' });
 
 
-
 sequelize
   .sync({ alter:true })
   .then("database connected ...")
@@ -30,4 +29,4 @@ sequelize
     console.log("database err : ", err);
   });
 
-module.exports = { Product, Image,Category };
+module.exports = { Product, Image,Category,Brand,SubCategory };

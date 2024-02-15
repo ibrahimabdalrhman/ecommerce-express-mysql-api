@@ -7,7 +7,7 @@ exports.getProducts = asyncHandler(async (req, res) => {
   const products = await Product.findAll({
     include: Image,
   });
-  res.status(201).json(products);
+  res.status(200).json(products);
 });
 
 exports.getProductById = asyncHandler(async (req, res) => {
@@ -31,7 +31,7 @@ exports.postProduct = asyncHandler(async (req, res) => {
   if (req.files.image) {
     const newImage = await products.createImage({ uri: uploadRes.url });
   }
-  res.status(200).json(products);
+  res.status(201).json(products);
 });
 
 exports.updateProduct = asyncHandler(async (req, res) => {
