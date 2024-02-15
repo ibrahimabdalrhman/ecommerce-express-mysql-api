@@ -98,6 +98,18 @@ router.get("/:id", productController.getProductById);
  *                 type: integer
  *                 description: The quantity of ratings for the product
  *                 example: 20
+ *               CategoryId:
+ *                 type: integer
+ *                 description: The ID of the category to which the product belongs
+ *                 example: 1
+ *               BrandId:
+ *                 type: integer
+ *                 description: The ID of the brand of the product
+ *                 example: 1
+ *               SubCategoryId:
+ *                 type: integer
+ *                 description: The ID of the SubCategory of the product
+ *                 example: 1
  *               image:
  *                 type: array
  *                 items:
