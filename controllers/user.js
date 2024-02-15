@@ -2,7 +2,6 @@ const { User } = require("../models");
 const asyncHandler = require("express-async-handler");
 const ApiError = require("../utils/apiError");
 const cloudinary = require("../utils/cloudinary");
-const { empty } = require("statuses");
 
 exports.getUsers = asyncHandler(async (req, res) => {
   const users = await User.findAll();

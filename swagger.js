@@ -8,6 +8,21 @@ const options = {
       title: "E-commerce API",
       version: "1.0.0",
     },
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: "apiKey",
+          in: "header",
+          name: "Authorization",
+          description: "JWT token obtained after successful login",
+        },
+      },
+    },
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
   },
   apis: ["./routes/*.js"], // Path to the API routes
 };

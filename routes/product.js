@@ -1,12 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const productController = require("../controllers/product");
+const authController = require("../controllers/auth");
 
 /**
  * @swagger
  * tags:
  *   name: Products
  *   description: Product management
+ * parameters:
+ *       - in: header
+ *         name: Authorization
+ *         description: JWT token obtained after successful login
+ *         required: true
+ *         schema:
+ *           type: string
  */
 
 /**
@@ -25,7 +33,7 @@ const productController = require("../controllers/product");
  *               items:
  *                 $ref: '#/components/schemas/Product'
  */
-router.get("/", productController.getProducts);
+router.get("/",authController.protect ,productController.getProducts);
 
 /**
  * @swagger
