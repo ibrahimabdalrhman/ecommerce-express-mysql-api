@@ -7,14 +7,14 @@ exports.getCategory = asyncHandler(async (req, res) => {
   const category = await Category.findAll({
     include: SubCategory,
   });
-  res.status(201).json(category);
+  res.status(200).json(category);
 });
 
 exports.getCategoryById = asyncHandler(async (req, res) => {
   const category = await Category.findByPk(req.params.id, {
     include: SubCategory,
   });
-  res.status(201).json(category);
+  res.status(200).json(category);
 });
 
 exports.postCategory = asyncHandler(async (req, res) => {
@@ -30,7 +30,7 @@ exports.postCategory = asyncHandler(async (req, res) => {
   req.body.image = uploadRes.url;
   const category = await Category.create(req.body);
 
-  res.status(200).json(category);
+  res.status(201).json(category);
 });
 
 exports.updateCategory = asyncHandler(async (req, res, next) => {

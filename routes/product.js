@@ -115,6 +115,7 @@ router.get("/:id", productController.getProductById);
 
 
 router.post("/", productController.postProduct);
+
 /**
  * @swagger
  * /api/v1/product/{id}:
@@ -186,7 +187,8 @@ router.post("/", productController.postProduct);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Product'
- */router.patch("/:id", productController.updateProduct);
+ */
+router.patch("/:id", productController.updateProduct);
 
 /**
  * @swagger

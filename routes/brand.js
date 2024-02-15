@@ -1,60 +1,60 @@
 const express = require('express');
 const router = express.Router();
-const categoryController = require('../controllers/category');
+const brandController = require('../controllers/brand');
 
 /**
  * @swagger
  * tags:
- *   name: Categories
- *   description: Categories management
+ *   name: Brands
+ *   description: Brands management
  */
 
 /**
  * @swagger
- * /api/v1/category:
+ * /api/v1/brand:
  *   get:
- *     summary: Get all Categories
- *     tags: [Categories]
+ *     summary: Get all Brands
+ *     tags: [Brands]
  *     responses:
  *       '200':
- *         description: A list of products
+ *         description: A list of brands
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Categories'
+ *                 $ref: '#/components/schemas/Brands'
  */
-router.get('/', categoryController.getCategory);
+router.get("/", brandController.getBrands);
 
 /**
  * @swagger
- * /api/v1/category/{id}:
+ * /api/v1/brand/{id}:
  *   get:
- *     summary: Get a product by ID
- *     tags: [Categories]
+ *     summary: Get a brand by ID
+ *     tags: [Brands]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID of the category to retrieve
+ *         description: ID of the brand to retrieve
  *         schema:
  *           type: integer
  *     responses:
  *       '200':
- *         description: A category object
+ *         description: A brand object
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/category'
+ *               $ref: '#/components/schemas/brand'
  */
-router.get('/:id', categoryController.getCategoryById);
+router.get('/:id', brandController.getBrandById);
 /**
  * @swagger
- * /api/v1/category:
+ * /api/v1/brand:
  *   post:
- *     summary: Create a new category
- *     tags: [Categories]
+ *     summary: Create a new brand
+ *     tags: [Brands]
  *     requestBody:
  *       required: true
  *       content:
@@ -64,37 +64,37 @@ router.get('/:id', categoryController.getCategoryById);
  *             properties:
  *               name:
  *                 type: string
- *                 description: The title of the category
- *                 example: Sample category
+ *                 description: The title of the brand
+ *                 example: Sample brand
  *               image:
  *                 type: array
  *                 items:
  *                   type: string
  *                   format: binary
- *                   description: The images of the category (file upload)
+ *                   description: The images of the brand (file upload)
  *     responses:
  *       '201':
- *         description: Successfully created category
+ *         description: Successfully created brand
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/category'
+ *               $ref: '#/components/schemas/brand'
  */
 
 
-router.post('/', categoryController.postCategory);
+router.post('/', brandController.postBrand);
 
 /**
  * @swagger
- * /api/v1/category/{id}:
+ * /api/v1/brand/{id}:
  *   patch:
- *     summary: Update a category by ID
- *     tags: [Categories]
+ *     summary: Update a brand by ID
+ *     tags: [Brands]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID of the category to update
+ *         description: ID of the brand to update
  *         schema:
  *           type: integer
  *     requestBody:
@@ -102,51 +102,51 @@ router.post('/', categoryController.postCategory);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/category'
+ *             $ref: '#/components/schemas/brand'
  *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
  *               name:
  *                 type: string
- *                 description: The title of the category
- *                 example: Sample category
+ *                 description: The title of the brand
+ *                 example: Sample brand
  *               image:
  *                 type: array
  *                 items:
  *                   type: string
  *                   format: binary
- *                   description: The images of the category (file upload)
+ *                   description: The images of the brand (file upload)
  *     responses:
  *       '200':
- *         description: Successfully updated category
+ *         description: Successfully updated brand
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/category'
+ *               $ref: '#/components/schemas/brand'
  */
 
-router.patch('/:id', categoryController.updateCategory);
+router.patch('/:id', brandController.updateBrand);
 
 /**
  * @swagger
- * /api/v1/category/{id}:
+ * /api/v1/brand/{id}:
  *   delete:
- *     summary: Delete a product by ID
- *     tags: [Categories]
+ *     summary: Delete a brand by ID
+ *     tags: [Brands]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID of the category to delete
+ *         description: ID of the brand to delete
  *         schema:
  *           type: integer
  *     responses:
  *       '200':
- *         description: Successfully deleted category
+ *         description: Successfully deleted brand
  */
 
-router.delete('/:id',categoryController.deleteCategory);
+router.delete('/:id',brandController.deleteBrand);
 
 
 module.exports = router;
