@@ -65,14 +65,22 @@ exports.protect = asyncHandler(async (req, res, next) => {
 });
 
 
-// exports.profileImage = asyncHandler(async (req, res, next) => {
+exports.profileImage = asyncHandler(async (req, res, next) => {
   
-//   const user=await User.find
-
-
-
-
-// })
+  if (req.files && req.files.profileImage) {
+    const profileImage = req.files.profileImage;
+    const uploadRes = await cloudinary.uploader.upload(profileImage.tempFilePath, {
+      public_id: `${Date.now()}`,
+      resource_type: "image",
+      folder: "ecommerce-mysql/user",
+    });
+    req.body.profileImage = uploadRes.url;
+  }
+  const user = await User.findByPk(req.user.id);
+  user.profileImage = req.body.profileImage;
+  await user.update(req.body);
+  res.status(200).json(user);
+});
 
 
 

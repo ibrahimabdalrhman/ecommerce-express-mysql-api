@@ -90,5 +90,36 @@ router.post("/signup", authController.signup);
  */
 router.post("/login", authController.login);
 
+/**
+ * @swagger
+ * /api/v1/auth/profileImage:
+ *   patch:
+ *     summary: update your profile image
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               profileImage:
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *                   description: The images of the category (file upload)
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/user'
+ *     responses:
+ *       '200':
+ *         description: A user object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/user'
+ */
+router.patch("/profileImage",authController.protect ,authController.profileImage);
+
 
 module.exports = router;
