@@ -6,6 +6,7 @@ const SubCategory = require("./subCategory");
 const User = require("./user");
 const Wishlist = require("./wishlist");
 const Comment = require("./comments");
+const Review = require("./reviews");
 const sequelize = require("../config/database");
 
 Product.hasMany(Image);
@@ -35,6 +36,12 @@ Comment.belongsTo(User);
 Product.hasMany(Comment);
 Comment.belongsTo(Product);
 
+Product.hasMany(Review);
+Review.belongsTo(Product);
+
+User.hasMany(Review);
+Review.belongsTo(User);
+
 
 sequelize
   .sync({
@@ -54,4 +61,5 @@ module.exports = {
   User,
   Wishlist,
   Comment,
+  Review,
 };

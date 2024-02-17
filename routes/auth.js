@@ -60,7 +60,7 @@ router.post("/signup", authController.signup);
  * @swagger
  * /api/v1/auth/login:
  *   post:
- *     summary: login ser by email
+ *     summary: login by email
  *     tags: [Auth]
  *     requestBody:
  *       required: true
