@@ -4,6 +4,7 @@ const Category = require("./category");
 const Brand = require("./brand");
 const SubCategory = require("./subCategory");
 const User = require("./user");
+const Wishlist = require("./wishlist");
 const sequelize = require("../config/database");
 
 Product.hasMany(Image);
@@ -24,12 +25,25 @@ SubCategory.belongsToMany(Product, { through: "subcategoryProduct" });
 User.hasMany(Product);
 Product.belongsTo(User);
 
+User.hasMany(Wishlist);
+Wishlist.belongsTo(User);
+
 
 sequelize
-  .sync({  })
+  .sync({
+    // alter: true
+  })
   .then("database connected ...")
   .catch((err) => {
     console.log("database err : ", err);
   });
 
-module.exports = { Product, Image, Category, Brand, SubCategory, User };
+module.exports = {
+  Product,
+  Image,
+  Category,
+  Brand,
+  SubCategory,
+  User,
+  Wishlist,
+};
