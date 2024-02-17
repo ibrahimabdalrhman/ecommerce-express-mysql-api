@@ -21,8 +21,12 @@ SubCategory.belongsTo(Category);
 Product.belongsToMany(SubCategory, { through: "subcategoryProduct" });
 SubCategory.belongsToMany(Product, { through: "subcategoryProduct" });
 
+User.hasMany(Product);
+Product.belongsTo(User);
+
+
 sequelize
-  .sync({ alter: true })
+  .sync({  })
   .then("database connected ...")
   .catch((err) => {
     console.log("database err : ", err);

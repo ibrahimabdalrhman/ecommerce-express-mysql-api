@@ -134,7 +134,7 @@ router.get("/:id", productController.getProductById);
  */
 
 
-router.post("/", productController.postProduct);
+router.post("/", authController.protect, productController.postProduct);
 
 /**
  * @swagger
@@ -208,7 +208,7 @@ router.post("/", productController.postProduct);
  *             schema:
  *               $ref: '#/components/schemas/Product'
  */
-router.patch("/:id", productController.updateProduct);
+router.patch("/:id", authController.protect, productController.updateProduct);
 
 /**
  * @swagger
@@ -227,6 +227,6 @@ router.patch("/:id", productController.updateProduct);
  *       '200':
  *         description: Successfully deleted product
  */
-router.delete("/:id", productController.deleteProduct);
+router.delete("/:id", authController.protect, productController.deleteProduct);
 
 module.exports = router;

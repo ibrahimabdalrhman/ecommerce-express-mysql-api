@@ -49,6 +49,8 @@ exports.postProduct = asyncHandler(async (req, res, next) => {
     // crop: "pad",
   });
 
+  req.body.UserId = req.user.id;
+
   let productData = req.body;
 
   // Create the product
@@ -81,11 +83,19 @@ exports.postProduct = asyncHandler(async (req, res, next) => {
   res.status(201).json(product);
 });
 
-
-exports.updateProduct = asyncHandler(async (req, res) => {
+exports.updateProduct = asyncHandler(async (req, res, next) => {
   const product = await Product.findByPk(req.params.id);
   if (!product) {
     returnnext(new ApiError("product not found", 404));
+  }
+  const userRole = req.user.role.toString();
+  if (req.user.id != product.UserId) {
+    if (userRole === 'admin' || userRole === 'manager') {
+    } else {
+      return next(
+        new ApiError("You do not have the authority to modify this product")
+      );
+    }
   }
   await product.update(req.body);
   if (req.body.image) {
@@ -95,10 +105,17 @@ exports.updateProduct = asyncHandler(async (req, res) => {
   res.status(200).json(product);
 });
 
-exports.deleteProduct = asyncHandler(async (req, res) => {
-  const product = await Product.findByPk(req.params.id, {
-    include: Image,
-  });
+exports.deleteProduct = asyncHandler(async (req, res,next) => {
+  const product = await Product.findByPk(req.params.id);
+  const userRole = req.user.role.toString();
+  if (req.user.id != product.UserId) {
+    if (userRole === "admin" || userRole === "manager") {
+    } else {
+      return next(
+        new ApiError("You do not have the authority to modify this product")
+      );
+    }
+  }
   await product.destroy();
   res.status(200).json(product);
 });
