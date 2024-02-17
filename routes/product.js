@@ -134,7 +134,12 @@ router.get("/:id", productController.getProductById);
  */
 
 
-router.post("/", authController.protect, productController.postProduct);
+router.post(
+  "/",
+  authController.protect,
+  authController.allowTo("admin", "manager","user"),
+  productController.postProduct
+);
 
 /**
  * @swagger
@@ -208,7 +213,13 @@ router.post("/", authController.protect, productController.postProduct);
  *             schema:
  *               $ref: '#/components/schemas/Product'
  */
-router.patch("/:id", authController.protect, productController.updateProduct);
+router.patch(
+  "/:id",
+  authController.protect,
+  authController.allowTo("admin", "manager","user"),
+  authController.protect,
+  productController.updateProduct
+);
 
 /**
  * @swagger
@@ -227,6 +238,11 @@ router.patch("/:id", authController.protect, productController.updateProduct);
  *       '200':
  *         description: Successfully deleted product
  */
-router.delete("/:id", authController.protect, productController.deleteProduct);
+router.delete(
+  "/:id",
+  authController.protect,
+  authController.allowTo("admin", "manager","user"),
+  productController.deleteProduct
+);
 
 module.exports = router;

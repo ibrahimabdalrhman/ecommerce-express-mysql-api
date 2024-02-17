@@ -38,7 +38,6 @@ exports.protect = asyncHandler(async (req, res, next) => {
     return next(new ApiError("you must login to access this route ", 401));
   }
   const token = req.headers.authorization.split(" ")[1];
-  console.log(req.headers.authorization);
   if (!token) {
     return next(new ApiError("you must login to access this route ", 401));
   }
@@ -51,7 +50,6 @@ exports.protect = asyncHandler(async (req, res, next) => {
       return next(new ApiError("you must login to access this route ", 401));
     }
     req.user = currentUser;
-    console.log(req.user);
     next();
   } catch (err) {
     if (err instanceof jwt.JsonWebTokenError) {

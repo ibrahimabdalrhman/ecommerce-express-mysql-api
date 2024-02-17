@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const categoryController = require('../controllers/category');
+const authController = require("../controllers/auth");
+
 
 /**
  * @swagger
@@ -82,7 +84,12 @@ router.get('/:id', categoryController.getCategoryById);
  */
 
 
-router.post('/', categoryController.postCategory);
+router.post(
+  "/",
+  authController.protect,
+  authController.allowTo("admin", "manager"),
+  categoryController.postCategory
+);
 
 /**
  * @swagger
@@ -126,7 +133,12 @@ router.post('/', categoryController.postCategory);
  *               $ref: '#/components/schemas/category'
  */
 
-router.patch('/:id', categoryController.updateCategory);
+router.patch(
+  "/:id",
+  authController.protect,
+  authController.allowTo("admin", "manager"),
+  categoryController.updateCategory
+);
 
 /**
  * @swagger
@@ -146,7 +158,12 @@ router.patch('/:id', categoryController.updateCategory);
  *         description: Successfully deleted category
  */
 
-router.delete('/:id',categoryController.deleteCategory);
+router.delete(
+  "/:id",
+  authController.protect,
+  authController.allowTo("admin", "manager"),
+  categoryController.deleteCategory
+);
 
 
 module.exports = router;

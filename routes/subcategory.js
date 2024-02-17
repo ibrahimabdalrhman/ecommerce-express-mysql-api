@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const subCategoryController = require('../controllers/subCategory');
+const authController = require("../controllers/auth");
+
 
 /**
  * @swagger
@@ -87,7 +89,12 @@ router.get('/:id', subCategoryController.getSubCategoryById);
  */
 
 
-router.post('/', subCategoryController.postSubCategory);
+router.post(
+  "/",
+  authController.protect,
+  authController.allowTo("admin", "manager"),
+  subCategoryController.postSubCategory
+);
 
 /**
  * @swagger
@@ -131,7 +138,12 @@ router.post('/', subCategoryController.postSubCategory);
  *               $ref: '#/components/schemas/subCategories'
  */
 
-router.patch('/:id', subCategoryController.updateSubCategory);
+router.patch(
+  "/:id",
+  authController.protect,
+  authController.allowTo("admin", "manager"),
+  subCategoryController.updateSubCategory
+);
 
 /**
  * @swagger
@@ -151,7 +163,12 @@ router.patch('/:id', subCategoryController.updateSubCategory);
  *         description: Successfully deleted subCategories
  */
 
-router.delete('/:id',subCategoryController.deleteSubCategory);
+router.delete(
+  "/:id",
+  authController.protect,
+  authController.allowTo("admin", "manager"),
+  subCategoryController.deleteSubCategory
+);
 
 
 module.exports = router;

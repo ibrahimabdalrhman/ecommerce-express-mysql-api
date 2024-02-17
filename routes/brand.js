@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const brandController = require('../controllers/brand');
+const authController = require("../controllers/auth");
 
 /**
  * @swagger
@@ -82,7 +83,7 @@ router.get('/:id', brandController.getBrandById);
  */
 
 
-router.post('/', brandController.postBrand);
+router.post('/',authController.protect,authController.allowTo("admin","manager"), brandController.postBrand);
 
 /**
  * @swagger
@@ -126,7 +127,12 @@ router.post('/', brandController.postBrand);
  *               $ref: '#/components/schemas/brand'
  */
 
-router.patch('/:id', brandController.updateBrand);
+router.patch(
+  "/:id",
+  authController.protect,
+  authController.allowTo("admin", "manager"),
+  brandController.updateBrand
+);
 
 /**
  * @swagger
@@ -146,7 +152,12 @@ router.patch('/:id', brandController.updateBrand);
  *         description: Successfully deleted brand
  */
 
-router.delete('/:id',brandController.deleteBrand);
+router.delete(
+  "/:id",
+  authController.protect,
+  authController.allowTo("admin", "manager"),
+  brandController.deleteBrand
+);
 
 
 module.exports = router;
