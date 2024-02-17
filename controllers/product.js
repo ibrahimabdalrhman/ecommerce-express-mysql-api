@@ -1,4 +1,4 @@
-const { Product, Image, Category, SubCategory, Brand } = require("../models");
+const { Product, Image, Category, SubCategory, Brand,Comment,User } = require("../models");
 const asyncHandler = require("express-async-handler");
 const ApiError = require("../utils/apiError");
 const cloudinary = require("../utils/cloudinary");
@@ -10,10 +10,16 @@ exports.getProducts = asyncHandler(async (req, res) => {
       { model: Category, attributes: ["name", "image"] },
       { model: SubCategory, attributes: ["name", "image"] },
       { model: Brand, attributes: ["name", "image"] },
+      {
+        model: Comment,
+        attributes: ["comment", "UserId"],
+        include: [{ model: User, attributes: ["name", "profileImage"] }], // Include the User model
+      },
     ],
   });
   res.status(200).json(products);
 });
+
 
 exports.getProductById = asyncHandler(async (req, res) => {
   const products = await Product.findByPk(req.params.id, {

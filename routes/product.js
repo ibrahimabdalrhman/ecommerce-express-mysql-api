@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const commentsRoute = require('./comments');
 const productController = require("../controllers/product");
 const authController = require("../controllers/auth");
+
+
+router.use('/:ProductId/comments', commentsRoute);
 
 /**
  * @swagger
