@@ -57,7 +57,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
     }
     next(err);
   }
-});
+})
 
 exports.profileImage = asyncHandler(async (req, res, next) => {
   if (req.files && req.files.profileImage) {
