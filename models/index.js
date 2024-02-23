@@ -42,10 +42,9 @@ Review.belongsTo(Product);
 User.hasMany(Review);
 Review.belongsTo(User);
 
-
 sequelize
   .sync({
-    // alter: true
+    alter: true,
   })
   .then("database connected ...")
   .catch((err) => {

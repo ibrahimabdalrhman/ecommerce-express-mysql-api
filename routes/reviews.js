@@ -50,6 +50,105 @@ const reviewsController = require("../controllers/reviews");
 
 router.post('/', authController.protect,reviewsController.addReview);
 
+/**
+ * @swagger
+ * /api/v1/product/{ProductId}/reviews:
+ *   get:
+ *     summary: get reviews 
+ *     tags: [Reviews]
+ *     parameters:
+ *       - in: path
+ *         name: ProductId
+ *         required: true
+ *         description: ID of the Product to add review
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       '200':
+ *         description: Successfully add review
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/reviews'
+ */
+
+router.get('/', authController.protect,reviewsController.getReviews);
+/**
+ * @swagger
+ * /api/v1/product/{ProductId}/reviews/{ReviewId}:
+ *   get:
+ *     summary: get one review by id 
+ *     tags: [Reviews]
+ *     parameters:
+ *       - in: path
+ *         name: ProductId
+ *         required: true
+ *         description: ID of the Product to add review
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: ReviewId
+ *         required: true
+ *         description: ID of the Review 
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       '200':
+ *         description: Successfully add review
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/reviews'
+ */
+
+router.get('/:ReviewId', authController.protect,reviewsController.getReviewById);
+/**
+ * @swagger
+ * /api/v1/product/{ProductId}/reviews/{ReviewId}:
+ *   patch:
+ *     summary: update one review by id 
+ *     tags: [Reviews]
+ *     parameters:
+ *       - in: path
+ *         name: ReviewId
+ *         required: true
+ *         description: ID of the Review 
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       '200':
+ *         description: Successfully add review
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/reviews'
+ */
+
+router.patch('/:ReviewId', authController.protect,reviewsController.updateReview);
+/**
+ * @swagger
+ * /api/v1/product/{ProductId}/reviews/{ReviewId}:
+ *   delete:
+ *     summary: delete one review by id 
+ *     tags: [Reviews]
+ *     parameters:
+ *       - in: path
+ *         name: ReviewId
+ *         required: true
+ *         description: ID of the Review 
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       '200':
+ *         description: Successfully add review
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/reviews'
+ */
+
+router.delete('/:ReviewId', authController.protect,reviewsController.deleteReview);
+
 
 
 

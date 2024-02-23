@@ -42,6 +42,7 @@ app.all("*", (req, res, next) => {
 // Global error handling middleware for express
 app.use(globalError);
 
-app.listen(3000, () => {
-  console.log("server running on port 3000");
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`server running on port ${port}`);
 });
