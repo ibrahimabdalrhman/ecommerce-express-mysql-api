@@ -32,6 +32,11 @@ exports.getProductById = asyncHandler(async (req, res) => {
 });
 
 exports.postProduct = asyncHandler(async (req, res, next) => {
+  console.log(req.body);
+  if(req.body.priceAfterDiscount==''){
+    req.body.priceAfterDiscount=null;
+  }
+  console.log(req.body);
   if (req.body.BrandId) {
     const brand = await Brand.findByPk(req.body.BrandId);
     if (!brand) {

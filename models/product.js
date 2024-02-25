@@ -24,6 +24,7 @@ const Product = sequelize.define("Product", {
   },
   priceAfterDiscount: {
     type: DataTypes.FLOAT,
+    allowNull:true
   },
   ratingsAverage: {
     type: DataTypes.FLOAT,

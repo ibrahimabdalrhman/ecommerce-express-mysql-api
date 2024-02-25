@@ -52,7 +52,7 @@ CartItem.belongsTo(Cart);
 
 sequelize
   .sync({
-    alter: true,
+    // alter: true,
   })
   .then("database connected ...")
   .catch((err) => {
@@ -69,4 +69,6 @@ module.exports = {
   Wishlist,
   Comment,
   Review,
+  Cart,
+  CartItem,
 };

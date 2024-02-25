@@ -8,6 +8,7 @@ const Cart = sequelize.define("Cart", {
   },
   totalCartPrice: {
     type: DataTypes.FLOAT,
+    defaultValue:0,
   },
 });
 
