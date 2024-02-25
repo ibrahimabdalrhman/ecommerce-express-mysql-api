@@ -7,6 +7,8 @@ const User = require("./user");
 const Wishlist = require("./wishlist");
 const Comment = require("./comments");
 const Review = require("./reviews");
+const Cart = require("./cart");
+const CartItem = require("./cartItems");
 const sequelize = require("../config/database");
 
 Product.hasMany(Image);
@@ -41,6 +43,12 @@ Review.belongsTo(Product);
 
 User.hasMany(Review);
 Review.belongsTo(User);
+
+User.hasOne(Cart);
+Cart.belongsTo(User);
+
+Cart.hasMany(CartItem);
+CartItem.belongsTo(Cart);
 
 sequelize
   .sync({
