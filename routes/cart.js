@@ -50,12 +50,42 @@ router.post('/', authController.protect, cartController.addToCart);
 
 /**
  * @swagger
- * /api/v1/cart:
- *   get:
+ * /api/v1/cart/deleteItemFromCart:
+ *   post:
  *     summary: get   Cart
  *     tags: [Cart]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               CartItemId:
+ *                 type: integer
+ *                 description: The Id of the product
+ *                 example: 1
  *     responses:
- *       '201':
+ *       '200':
+ *         description: A list of Products
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Users'
+ */
+
+router.post('/deleteItemFromCart', authController.protect, cartController.deleteItemFromCart);
+
+/**
+ * @swagger
+ * /api/v1/cart:
+ *   get:
+ *     summary: delete product from Cart
+ *     tags: [Cart]
+ *     responses:
+ *       '200':
  *         description: A list of Products
  *         content:
  *           application/json:
@@ -66,6 +96,25 @@ router.post('/', authController.protect, cartController.addToCart);
  */
 
 router.get('/', authController.protect, cartController.getCart);
+
+/**
+ * @swagger
+ * /api/v1/cart:
+ *   delete:
+ *     summary: delete product from Cart
+ *     tags: [Cart]
+ *     responses:
+ *       '200':
+ *         description: A list of Products
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Users'
+ */
+
+router.delete('/', authController.protect, cartController.clearCart);
 
 
 
