@@ -10,6 +10,7 @@ const Review = require("./reviews");
 const Cart = require("./cart");
 const CartItem = require("./cartItems");
 const Order = require("./order");
+const OrderItem = require("./orderItems");
 const sequelize = require("../config/database");
 
 Product.hasMany(Image);
@@ -54,14 +55,13 @@ CartItem.belongsTo(Cart);
 User.hasMany(Order);
 Order.belongsTo(User);
 
-Order.hasMany(CartItem);
-CartItem.belongsTo(Order);
-
+Order.hasMany(OrderItem);
+OrderItem.belongsTo(Order);
 
 
 sequelize
   .sync({
-    alter: true,
+    alter: true
   })
   .then("database connected ...")
   .catch((err) => {
@@ -80,4 +80,6 @@ module.exports = {
   Review,
   Cart,
   CartItem,
+  Order,
+  OrderItem
 };

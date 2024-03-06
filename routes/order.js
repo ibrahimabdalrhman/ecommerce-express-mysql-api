@@ -1,21 +1,28 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/auth");
-const cartController = require("../controllers/cart");
+const orderController = require("../controllers/order");
 
 /**
  * @swagger
  * tags:
- *   name: Cart
- *   description: Users management
+ *   name: Order
+ *   description: user orders
  */
 
 /**
  * @swagger
- * /api/v1/cart:
+ * /api/v1/order/{cartId}:
  *   post:
- *     summary: add  product into Cart
- *     tags: [Cart]
+ *     summary: add  cart into order
+ *     tags: [Order]
+ *     parameters:
+ *       - in: path
+ *         name: cartId
+ *         required: true
+ *         description: ID of the cart to add order
+ *         schema:
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -23,18 +30,10 @@ const cartController = require("../controllers/cart");
  *           schema:
  *             type: object
  *             properties:
- *               ProductId:
- *                 type: integer
- *                 description: The Id of the product
- *                 example: 1
- *               color:
- *                 type: string
- *                 description: The Id of the product
- *                 example: 1
- *               quantity:
- *                 type: integer
- *                 description: The Id of the product
- *                 example: 1
+ *               shippingAddress:
+ *                 type: text
+ *                 description: shipping Address
+ *                 example: zamalek,cairo ,egypt
  *     responses:
  *       '201':
  *         description: A list of Products
@@ -46,25 +45,14 @@ const cartController = require("../controllers/cart");
  *                 $ref: '#/components/schemas/Users'
  */
 
-router.post('/', authController.protect, cartController.addToCart);
+router.post('/:cartId', authController.protect, orderController.addOrder);
 
 /**
  * @swagger
- * /api/v1/cart/deleteItemFromCart:
- *   post:
- *     summary: delete item from your Cart
- *     tags: [Cart]
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               CartItemId:
- *                 type: integer
- *                 description: The Id of the product
- *                 example: 1
+ * /api/v1/order/:
+ *   get:
+ *     summary: all orders
+ *     tags: [Order]
  *     responses:
  *       '200':
  *         description: A list of Products
@@ -76,14 +64,14 @@ router.post('/', authController.protect, cartController.addToCart);
  *                 $ref: '#/components/schemas/Users'
  */
 
-router.post('/deleteItemFromCart', authController.protect, cartController.deleteItemFromCart);
+router.get('/', authController.protect, orderController.getOrders);
 
 /**
  * @swagger
- * /api/v1/cart:
+ * /api/v1/order:
  *   get:
  *     summary: get your Cart
- *     tags: [Cart]
+ *     tags: [Order]
  *     responses:
  *       '200':
  *         description: A list of Products
@@ -95,14 +83,14 @@ router.post('/deleteItemFromCart', authController.protect, cartController.delete
  *                 $ref: '#/components/schemas/Users'
  */
 
-router.get('/', authController.protect, cartController.getCart);
+// router.get('/', authController.protect, cartController.getCart);
 
 /**
  * @swagger
- * /api/v1/cart:
+ * /api/v1/order:
  *   delete:
  *     summary: clear Cart
- *     tags: [Cart]
+ *     tags: [Order]
  *     responses:
  *       '200':
  *         description: A list of Products
@@ -114,7 +102,7 @@ router.get('/', authController.protect, cartController.getCart);
  *                 $ref: '#/components/schemas/Users'
  */
 
-router.delete('/', authController.protect, cartController.clearCart);
+// router.delete('/', authController.protect, cartController.clearCart);
 
 
 

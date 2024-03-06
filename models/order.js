@@ -14,6 +14,10 @@ const Order = sequelize.define("Order", {
     type:DataTypes.TEXT,
     allowNull:false
   },
+  // isPaid:{
+  //   type: DataTypes.BOOLEAN,
+  //   allowNull:true
+  // },
 
 });
 

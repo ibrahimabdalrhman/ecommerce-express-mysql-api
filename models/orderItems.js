@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const CartItem = sequelize.define("CartItem", {
+const OrderItem = sequelize.define("OrderItem", {
   ProductId: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -14,19 +14,18 @@ const CartItem = sequelize.define("CartItem", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-
   price: {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
 });
 
-CartItem.belongsTo(sequelize.models.Product, {
-    foreignKey: "ProductId",
-    targetKey: "id",
-  });
+OrderItem.belongsTo(sequelize.models.Product, {
+  foreignKey: "ProductId",
+  targetKey: "id",
+});
 
 
 
 
-module.exports = CartItem;
+module.exports = OrderItem;

@@ -13,6 +13,7 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
 const wishlistRoute = require("./routes/wishlist");
 const cartRoute = require("./routes/cart");
+const orderRoute = require("./routes/order");
 const fileUpload = require("express-fileupload");
 
 app.use(express.json());
@@ -36,6 +37,7 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/wishlist", wishlistRoute);
 app.use("/api/v1/cart", cartRoute);
+app.use("/api/v1/order", orderRoute);
 
 app.all("*", (req, res, next) => {
   next(new ApiError(`Can't find this route: ${req.originalUrl}`, 400));
